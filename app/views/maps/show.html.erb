@@ -2,3 +2,20 @@
 
 <%= link_to 'Edit', edit_map_path(@map) %> |
 <%= link_to 'Back', maps_path %>
+
+<br />
+<p><%= @map.description %></p>
+<p>
+  Polygons:
+  <ul>
+    <% @map.polygons.each do |polygon| %>
+      <li><%= link_to polygon.designation, map_polygon_path(@map, polygon) %></li>
+    <% end %>
+  </ul>
+  <%= link_to 'New Polygon', new_map_polygon_path(@map) %>
+</p>
+
+<canvas id="tutorial" class="arena" width="900" height="600"></canvas>
+
+<div id="other_thing" data-message="<%= @map.id %>"></div>
+

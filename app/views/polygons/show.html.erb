@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Edit', edit_map_polygon_path(@map, @polygon) %> |
+<%= link_to 'Back', map_path(@map) %>
+
+<p>Vertices:</p>
+<p>
+  <ul>
+    <% @polygon.vertices.each do |vertex| %>
+      <li>
+        <%= vertex.x %>, <%= vertex.y %>
+        <%= link_to 'edit', edit_map_polygon_vertex_path(@map, @polygon, vertex) %>
+        <%= link_to 'Destroy', map_polygon_vertex_path(@map, @polygon, vertex), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ul>
+
+</p>

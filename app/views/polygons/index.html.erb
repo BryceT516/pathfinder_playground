@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Polygons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @polygons.each do |polygon| %>
+      <tr>
+        <td><%= polygon.designation %></td>
+        <td><%= link_to 'Show', map_polygon_path(@map, polygon) %></td>
+        <td><%= link_to 'Edit', edit_map_polygon_path(@map, polygon) %></td>
+        <td><%= link_to 'Destroy', map_polygon_path(@map, polygon), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Polygon', new_map_polygon_path(@map) %>

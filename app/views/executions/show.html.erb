@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+<p>Execution: <%= @execution.id %></p>
+
+<p>Map Id = <%= @map.id %> - Agent Id = <%= @agent.id %></p>
+
+<canvas id="arena" class="arena" width="900" height="600"></canvas>
+
+<button id="continue" onclick="step()">Continue</button>
+
+<div id="data"
+     data-map="<%= @map.id %>"
+     data-agent="<%= @agent.id %>"
+     data-execution="<%= @execution.id %>"
+></div>

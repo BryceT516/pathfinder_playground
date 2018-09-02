@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
+  namespace :arena_api, defaults: {format: 'json'} do
+    scope module: :v1 do
+      resources :maps
+      resources :executions
+    end
+  end
+
   root 'home#index'
-  resources :maps
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  resources :executions
+
+  resources :maps do
+    resources :polygons do
+      resources :vertices
+    end
+  end
 end

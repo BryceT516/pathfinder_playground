@@ -1,4 +1,3 @@
-# json.partial! "maps/map", map: @map
 json.id @map.id
 json.description @map.description
 json.width @map.width
