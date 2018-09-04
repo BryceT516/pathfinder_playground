@@ -26,6 +26,10 @@ ActiveRecord::Schema.define(version: 2018_09_03_161003) do
     t.integer "agent_current_x"
     t.integer "agent_current_y"
     t.float "agent_current_cost"
+    t.integer "start_point_x"
+    t.integer "start_point_y"
+    t.integer "end_point_x"
+    t.integer "end_point_y"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_executions_on_agent_id"
@@ -47,10 +51,6 @@ ActiveRecord::Schema.define(version: 2018_09_03_161003) do
     t.string "description"
     t.integer "width"
     t.integer "height"
-    t.integer "start_point_x"
-    t.integer "start_point_y"
-    t.integer "end_point_x"
-    t.integer "end_point_y"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

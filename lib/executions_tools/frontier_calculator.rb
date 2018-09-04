@@ -8,7 +8,7 @@ module ExecutionsTools
 
     def calculate
       puts "Frontier calc using current x = #{@execution.agent_current_x}, y = #{@execution.agent_current_y}"
-      return [{x: @map.end_point_x, y: @map.end_point_y}] if can_reach_end_point?
+      return [{x: @execution.end_point_x, y: @execution.end_point_y}] if can_reach_end_point?
 
       possible_vertices = []
       frontier = []
@@ -40,10 +40,14 @@ module ExecutionsTools
     private
 
     def can_reach_end_point?
-      line_to_end = {origin_x: @execution.agent_current_x, origin_y: @execution.agent_current_y, end_x: @map.end_point_x, end_y: @map.end_point_y}
-
+      puts ("Can_reach_end_point? ...")
+      puts ("origin_x = #{@execution.agent_current_x}, origin_y = #{@execution.agent_current_y} to end_x = #{@execution.end_point_x}, end_y = #{@execution.end_point_y}")
       @map.polygons.each do |polygon|
-        return false if polygon.check_intersection(origin_x: line_to_end[:origin_x], origin_y: line_to_end[:origin_y], end_x: line_to_end[:end_x], end_y: line_to_end[:end_y])
+        puts ("Polygon: #{polygon.id}")
+        return false if polygon.check_intersection(origin_x: @execution.agent_current_x,
+                                                   origin_y: @execution.agent_current_y,
+                                                   end_x: @execution.end_point_x,
+                                                   end_y: @execution.end_point_y)
       end
       true
     end

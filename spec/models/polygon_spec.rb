@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Polygon, type: :model do
-  let(:map) {Map.create(description: 'map 1', start_point_x: 115, start_point_y: 655, end_point_x: 380, end_point_y: 560)}
+  let(:map) {Map.create(description: 'map 1')}
   let!(:polygon_1) {Polygon.create(designation: 'a', map: map, vertex_count: 4)}
   before do
     polygon_1.vertices.create(x: 2, y: 1)

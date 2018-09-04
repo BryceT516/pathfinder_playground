@@ -57,8 +57,8 @@ module ArenaApi
         @execution = Execution.find(params[:id])
         @map = Map.find(@execution.map_id)
 
-        @execution.agent_current_x = @map.start_point_x
-        @execution.agent_current_y = @map.start_point_y
+        @execution.agent_current_x = @execution.start_point_x
+        @execution.agent_current_y = @execution.start_point_y
         @execution.agent_current_cost = 0
         @execution.frontier_points.each do |point|
           point.destroy
@@ -86,8 +86,8 @@ module ArenaApi
       private
 
       def get_distance_to_goal(point, execution)
-        x_distance = point[:x] - execution.map.end_point_x
-        y_distance = point[:y] - execution.map.end_point_y
+        x_distance = point[:x] - execution.end_point_x
+        y_distance = point[:y] - execution.end_point_y
 
         x_distance_sq = x_distance ** 2
         y_distance_sq = y_distance ** 2

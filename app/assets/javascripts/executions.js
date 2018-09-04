@@ -16,7 +16,7 @@ class Agent {
         this.agent_id = data.data('agent');
         this.execution_id = data.data('execution');
         $.getJSON("/arena_api/executions/" + data.data('execution'), function (resp) {
-            console.log('made ajax call...');
+            console.log('made ajax call for execution info...');
             console.log(resp);
             agent.current_x = resp.agent_current_x;
             agent.current_y = resp.agent_current_y;
@@ -77,6 +77,7 @@ class Agent {
     }
 
     move_agent() {
+        console.log("Move agent...")
         $.getJSON("/arena_api/executions/" + this.execution_id + "/move_agent", function (resp) {
             console.log('made ajax call for move agent...');
             console.log(resp);
@@ -104,9 +105,6 @@ function draw_map() {
 
         $.getJSON("/arena_api/maps/" + data.data('map'), function (resp) {
 
-            draw_start_point(context, resp.start_point_x, resp.start_point_y);
-            draw_end_point(context, resp.end_point_x, resp.end_point_y);
-
             $.each(resp.polygons, function (index, polygon) {
                 var vertex_counter = 0;
                 context.beginPath();
@@ -124,7 +122,10 @@ function draw_map() {
             });
         });
 
-        // draw_agent(context);
+        $.getJSON("/arena_api/executions/" + data.data('execution'), function (resp) {
+            draw_start_point(context, resp.start_point_x, resp.start_point_y);
+            draw_end_point(context, resp.end_point_x, resp.end_point_y);
+        });
     }
     return;
 }

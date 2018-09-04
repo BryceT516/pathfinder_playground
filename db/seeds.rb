@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-map = Map.create(description: 'map 1', start_point_x: 115, start_point_y: 655, end_point_x: 380, end_point_y: 560)
+map = Map.create(description: 'map 1')
 
 polygon1 = Polygon.create(designation: 'a', map: map, vertex_count: 4)
 polygon1.vertices.create(x: 220, y: 616)
@@ -61,4 +61,22 @@ polygon8.vertices.create(x: 182, y: 574)
 
 agent = Agent.create(name: 'agent A', description: 'A-star search algorithm.', algorithm: 'A-star')
 
-execution = Execution.create(map_id: 1, agent_id: 1, agent_current_x: map.start_point_x, agent_current_y: map.start_point_y, agent_current_cost: 0)
+execution = Execution.create(map_id: 1,
+                             agent_id: 1,
+                             agent_current_x: 115,
+                             agent_current_y: 655,
+                             agent_current_cost: 0,
+                             start_point_x: 115,
+                             start_point_y: 655,
+                             end_point_x: 380,
+                             end_point_y: 560)
+
+execution2 = Execution.create(map_id: 1,
+                             agent_id: 1,
+                             agent_current_x: 110,
+                             agent_current_y: 550,
+                             agent_current_cost: 0,
+                             start_point_x: 110,
+                             start_point_y: 550,
+                             end_point_x: 385,
+                             end_point_y: 600)
