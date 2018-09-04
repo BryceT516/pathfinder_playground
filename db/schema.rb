@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_31_062714) do
+ActiveRecord::Schema.define(version: 2018_09_03_161003) do
 
   create_table "agents", force: :cascade do |t|
     t.string "name"
@@ -25,10 +25,22 @@ ActiveRecord::Schema.define(version: 2018_08_31_062714) do
     t.integer "agent_id"
     t.integer "agent_current_x"
     t.integer "agent_current_y"
+    t.float "agent_current_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_executions_on_agent_id"
     t.index ["map_id"], name: "index_executions_on_map_id"
+  end
+
+  create_table "frontier_points", force: :cascade do |t|
+    t.integer "execution_id"
+    t.integer "x"
+    t.integer "y"
+    t.float "distance_to_goal"
+    t.float "cost"
+    t.float "total_cost"
+    t.float "h_score"
+    t.index ["execution_id"], name: "index_frontier_points_on_execution_id"
   end
 
   create_table "maps", force: :cascade do |t|

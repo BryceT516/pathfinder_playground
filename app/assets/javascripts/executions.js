@@ -1,3 +1,96 @@
+
+
+class Agent {
+
+    constructor() {
+        this.agent_id = null;
+        this.execution_id = null;
+        this.current_x = 0;
+        this.current_y = 0;
+        this.step_count = 0;
+        this.move_step = false;
+    }
+
+    initialize_after_pageload() {
+        var data = $("#data");
+        this.agent_id = data.data('agent');
+        this.execution_id = data.data('execution');
+        $.getJSON("/arena_api/executions/" + data.data('execution'), function (resp) {
+            console.log('made ajax call...');
+            console.log(resp);
+            agent.current_x = resp.agent_current_x;
+            agent.current_y = resp.agent_current_y;
+        });
+
+        this.context = $("#arena")[0].getContext('2d');
+    }
+
+    step() {
+        console.log("agent step....");
+        console.log(this);
+        if (this.step_count == 0) {
+            this.draw_agent();
+            this.move_step = false;
+        } else {
+            if (this.move_step == true) {
+                this.move_agent();
+                this.draw_agent();
+                this.move_step = false;
+            } else {
+                this.draw_agent();
+                this.get_frontier();
+                this.move_step = true;
+            }
+        }
+        this.step_count++;
+    }
+
+    get_frontier() {
+        $.getJSON("/arena_api/executions/" + this.execution_id + "/frontier", function (resp) {
+            console.log('made ajax call for frontier points...');
+            console.log(resp);
+            $.each(resp, function (index, vertex) {
+                agent.draw_line(agent.current_x, agent.current_y, vertex.x, vertex.y);
+            });
+        });
+    }
+
+    draw_line(start_x, start_y, end_x, end_y) {
+        this.context.moveTo((start_x - 100) * 3, (700 - start_y) * 3);
+        this.context.lineTo((end_x - 100) * 3, (700 - end_y) * 3);
+        this.context.lineWidth = 1;
+        this.context.strokeStyle = 'green';
+        this.context.stroke();
+    }
+
+    draw_agent() {
+        console.log("Drawing agent...")
+        var radius = 5;
+
+        this.context.beginPath();
+        this.context.arc((this.current_x - 100) * 3, (700 - this.current_y) * 3, radius, 0, 2 * Math.PI, false);
+        this.context.fillStyle = 'pink';
+        this.context.fill();
+        this.context.lineWidth = 1;
+        this.context.strokeStyle = '#003300';
+        this.context.stroke();
+    }
+
+    move_agent() {
+        $.getJSON("/arena_api/executions/" + this.execution_id + "/move_agent", function (resp) {
+            console.log('made ajax call for move agent...');
+            console.log(resp);
+            agent.current_x = resp.x;
+            agent.current_y = resp.y;
+            agent.draw_agent();
+        });
+    }
+}
+
+
+var agent = new Agent();
+
+
 function draw_map() {
     console.log("drawing map...");
 
@@ -60,78 +153,28 @@ function draw_end_point(context, x, y) {
     context.stroke();
 }
 
-// function draw_agent(context) {
-//     console.log("drawing agent...");
-//
-//     var data = $("#data");
-//
-//     console.log("Drawing Agent from execution id = " + data.data('execution'));
-//
-//     $.getJSON("/arena_api/executions/" + data.data('execution'), function (resp) {
-//         console.log(resp);
-//
-//         draw_agent_point(context, resp.agent_current_x, resp.agent_current_y);
-//     });
-//
-//     return;
-// }
-//
-// function draw_agent_point(context, x, y) {
-//     var radius = 5;
-//
-//     context.beginPath();
-//     context.arc((x - 100) * 3, (700 - y) * 3, radius, 0, 2 * Math.PI, false);
-//     context.fillStyle = 'pink';
-//     context.fill();
-//     context.lineWidth = 1;
-//     context.strokeStyle = '#003300';
-//     context.stroke();
-// }
 
 function start_up() {
     console.log("Start up.....");
     draw_map();
-    let agent = new Agent($("#data").data('agent'));
-    agent.draw();
+    console.log(agent);
+    agent.initialize_after_pageload();
+    console.log(agent);
 }
 
 $(document).on('turbolinks:load', start_up);
 
-class Agent {
-
-    constructor(agent_id) {
-        this.agent_id = agent_id;
-        this.current_x = 0;
-        this.current_y = 0;
-        var data = $("#data");
-        $.getJSON("/arena_api/executions/" + data.data('execution'), function (resp) {
-            this.current_x = resp.agent_current_x;
-            this.current_y = resp.agent_current_y;
-        });
-        var canvas = $("#arena");
-
-        this.context = canvas[0].getContext('2d');
-    }
-
-    draw() {
-        var radius = 5;
-
-        this.context.beginPath();
-        this.context.arc((this.current_x - 100) * 3, (700 - this.current_y) * 3, radius, 0, 2 * Math.PI, false);
-        this.context.fillStyle = 'pink';
-        this.context.fill();
-        this.context.lineWidth = 1;
-        this.context.strokeStyle = '#003300';
-        this.context.stroke();
-    }
-}
 
 function step() {
     console.log("*************** Step! ****************");
-    agent.draw();
+    agent.step();
 
-    // Make request for agent's next potential moves
-    // Draw those lines
-    //
+}
 
+function reset() {
+    console.log("______________ RESET! ________________");
+    var data = $("#data");
+    $.getJSON("/arena_api/executions/" + data.data('execution') + "/reset", function (resp) {
+        console.log(resp);
+    });
 }
