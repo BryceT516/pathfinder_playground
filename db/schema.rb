@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_03_161003) do
+ActiveRecord::Schema.define(version: 2018_09_05_031613) do
 
   create_table "agents", force: :cascade do |t|
     t.string "name"
@@ -71,6 +71,13 @@ ActiveRecord::Schema.define(version: 2018_09_03_161003) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["polygon_id"], name: "index_vertices_on_polygon_id"
+  end
+
+  create_table "visited_points", force: :cascade do |t|
+    t.integer "execution_id"
+    t.integer "x"
+    t.integer "y"
+    t.index ["execution_id"], name: "index_visited_points_on_execution_id"
   end
 
 end

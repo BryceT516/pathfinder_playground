@@ -58,7 +58,7 @@ class Agent {
     draw_line(start_x, start_y, end_x, end_y) {
         this.context.moveTo((start_x - 100) * 3, (700 - start_y) * 3);
         this.context.lineTo((end_x - 100) * 3, (700 - end_y) * 3);
-        this.context.lineWidth = 1;
+        this.context.lineWidth = 2;
         this.context.strokeStyle = 'green';
         this.context.stroke();
     }
@@ -118,7 +118,8 @@ function draw_map() {
                     }
                 });
                 context.closePath();
-                context.stroke();
+                context.fillStyle = 'grey';
+                context.fill();
             });
         });
 
@@ -178,4 +179,5 @@ function reset() {
     $.getJSON("/arena_api/executions/" + data.data('execution') + "/reset", function (resp) {
         console.log(resp);
     });
+    location.reload();
 }

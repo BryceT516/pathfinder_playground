@@ -79,4 +79,34 @@ execution2 = Execution.create(map_id: 1,
                              start_point_x: 110,
                              start_point_y: 550,
                              end_point_x: 385,
-                             end_point_y: 600)
+                              end_point_y: 600)
+
+execution3 = Execution.create(map_id: 1,
+                              agent_id: 1,
+                              agent_current_x: 110,
+                              agent_current_y: 680,
+                              agent_current_cost: 0,
+                              start_point_x: 110,
+                              start_point_y: 680,
+                              end_point_x: 385,
+                              end_point_y: 680)
+
+execution4 = Execution.create(map_id: 1,
+                              agent_id: 1,
+                              agent_current_x: 110,
+                              agent_current_y: 505,
+                              agent_current_cost: 0,
+                              start_point_x: 110,
+                              start_point_y: 505,
+                              end_point_x: 385,
+                              end_point_y: 660)
+
+execution5 = Execution.create(map_id: 1,
+                              agent_id: 1,
+                              agent_current_x: 110,
+                              agent_current_y: 680,
+                              agent_current_cost: 0,
+                              start_point_x: 110,
+                              start_point_y: 680,
+                              end_point_x: 385,
+                              end_point_y: 505)

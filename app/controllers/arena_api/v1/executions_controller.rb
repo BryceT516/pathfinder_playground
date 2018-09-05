@@ -16,21 +16,26 @@ module ArenaApi
 
       def frontier
         puts 'Frontier....'
+
         @execution = Execution.find(params[:id])
+
+        @execution.clear_frontier
 
         @frontier_points = ExecutionsTools::FrontierCalculator.new(@execution).calculate
         @frontier_points.each do |point|
-          distance_to_goal = get_distance_to_goal(point, @execution)
-          cost_to_point = get_cost_to_point(point, @execution)
-          total_cost_to_point = @execution.agent_current_cost + cost_to_point
+          unless @execution.visited_point?(point)
+            distance_to_goal = get_distance_to_goal(point, @execution)
+            cost_to_point = get_cost_to_point(point, @execution)
+            total_cost_to_point = @execution.agent_current_cost + cost_to_point
 
-          new_point = @execution.frontier_points.find_or_create_by(x: point[:x], y: point[:y])
-          new_point.update_attributes(
-              distance_to_goal: distance_to_goal,
-              cost: cost_to_point,
-              total_cost: total_cost_to_point,
-              h_score: total_cost_to_point + distance_to_goal
-          )
+            new_point = @execution.frontier_points.find_or_create_by(x: point[:x], y: point[:y])
+            new_point.update_attributes(
+                distance_to_goal: distance_to_goal,
+                cost: cost_to_point,
+                total_cost: total_cost_to_point,
+                h_score: total_cost_to_point + distance_to_goal
+            )
+          end
         end
       end
 
@@ -48,6 +53,7 @@ module ArenaApi
         @execution.agent_current_y = selected_point.y
         @execution.agent_current_cost = selected_point.total_cost
         @execution.save
+        @execution.visited_points.create(x: selected_point.x, y: selected_point.y)
         selected_point.destroy
         puts ("new current agent x = #{@execution.agent_current_x}, y = #{@execution.agent_current_y}")
         @new_location = {x: @execution.agent_current_x, y: @execution.agent_current_y}
@@ -61,6 +67,9 @@ module ArenaApi
         @execution.agent_current_y = @execution.start_point_y
         @execution.agent_current_cost = 0
         @execution.frontier_points.each do |point|
+          point.destroy
+        end
+        @execution.visited_points.each do |point|
           point.destroy
         end
         @execution.save
