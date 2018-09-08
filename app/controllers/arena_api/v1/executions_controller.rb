@@ -15,11 +15,7 @@ module ArenaApi
       end
 
       def frontier
-        puts 'Frontier....'
-
         @execution = Execution.find(params[:id])
-
-        @execution.clear_frontier
 
         @frontier_points = ExecutionsTools::FrontierCalculator.new(@execution).calculate
         @frontier_points.each do |point|
@@ -78,18 +74,6 @@ module ArenaApi
       def show
         @execution = Execution.find(params[:id])
 
-      end
-
-      def create
-        # respond_with Map.create(params[:map])
-      end
-
-      def update
-        # respond_with Map.update(params[:id], params[:map])
-      end
-
-      def destroy
-        # respond_with Map.destroy(params[:id])
       end
 
       private
