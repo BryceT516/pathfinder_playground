@@ -110,3 +110,66 @@ execution5 = Execution.create(map_id: 1,
                               start_point_y: 680,
                               end_point_x: 385,
                               end_point_y: 505)
+
+
+map2 = Map.create(description: 'map 2')
+
+polygon1 = Polygon.create(designation: 'a', map: map2, vertex_count: 4)
+polygon1.vertices.create(x: 150, y: 520)
+polygon1.vertices.create(x: 150, y: 680)
+polygon1.vertices.create(x: 170, y: 600)
+polygon1.vertices.create(x: 160, y: 600)
+
+polygon2 = Polygon.create(designation: 'b', map: map2, vertex_count: 4)
+polygon2.vertices.create(x: 150, y: 500)
+polygon2.vertices.create(x: 190, y: 500)
+polygon2.vertices.create(x: 190, y: 600)
+polygon2.vertices.create(x: 170, y: 520)
+
+polygon3 = Polygon.create(designation: 'c', map: map2, vertex_count: 6)
+polygon3.vertices.create(x: 311, y: 530)
+polygon3.vertices.create(x: 311, y: 559)
+polygon3.vertices.create(x: 339, y: 578)
+polygon3.vertices.create(x: 361, y: 560)
+polygon3.vertices.create(x: 361, y: 528)
+polygon3.vertices.create(x: 336, y: 516)
+
+polygon4 = Polygon.create(designation: 'd', map: map2, vertex_count: 5)
+polygon4.vertices.create(x: 205, y: 628)
+polygon4.vertices.create(x: 251, y: 670)
+polygon4.vertices.create(x: 280, y: 629)
+polygon4.vertices.create(x: 256, y: 577)
+polygon4.vertices.create(x: 213, y: 587)
+
+polygon5 = Polygon.create(designation: 'e', map: map2, vertex_count: 4)
+polygon5.vertices.create(x: 218, y: 517)
+polygon5.vertices.create(x: 345, y: 517)
+polygon5.vertices.create(x: 345, y: 577)
+polygon5.vertices.create(x: 218, y: 557)
+
+polygon6 = Polygon.create(designation: 'f', map: map2, vertex_count: 4)
+polygon6.vertices.create(x: 280, y: 583)
+polygon6.vertices.create(x: 333, y: 583)
+polygon6.vertices.create(x: 333, y: 665)
+polygon6.vertices.create(x: 280, y: 665)
+
+polygon7 = Polygon.create(designation: 'g', map: map2, vertex_count: 3)
+polygon7.vertices.create(x: 252, y: 594)
+polygon7.vertices.create(x: 290, y: 562)
+polygon7.vertices.create(x: 264, y: 538)
+
+polygon8 = Polygon.create(designation: 'h', map: map2, vertex_count: 3)
+polygon8.vertices.create(x: 398, y: 635)
+polygon8.vertices.create(x: 317, y: 574)
+polygon8.vertices.create(x: 382, y: 574)
+
+
+execution6 = Execution.create(map_id: 2,
+                              agent_id: 1,
+                              agent_current_x: 110,
+                              agent_current_y: 600,
+                              agent_current_cost: 0,
+                              start_point_x: 110,
+                              start_point_y: 600,
+                              end_point_x: 390,
+                              end_point_y: 600)
